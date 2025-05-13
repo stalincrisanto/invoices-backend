@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { getInvoices } from "../controllers";
+import {
+  generatePdfController,
+  getAllInvoicesController,
+} from "../controllers";
 
 const routerInvoices = Router();
 
-routerInvoices.get('/', getInvoices);
+routerInvoices.get("/", getAllInvoicesController);
+routerInvoices.post("/", generatePdfController);
 
 export default routerInvoices;
