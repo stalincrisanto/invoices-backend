@@ -1,1 +1,2 @@
-export { getInvoices } from "./invoices/getInvoices.controller";
+export { getAllInvoicesController } from "./invoices/invoices.controller";
+export { generatePdfController } from "./invoices/invoices.controller";
