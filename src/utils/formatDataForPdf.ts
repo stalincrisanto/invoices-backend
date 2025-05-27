@@ -32,7 +32,9 @@ export const formatDataForPdf = async (epmmqData: Epmmq, invoice: Invoice) => {
     contribuyente_especial_2: "162",
     account_razon: invoice.account_razon,
     account_fiscal_id: invoice.account_fiscal_id,
-    chs_data_dat: invoice.chs_data_dat,
+    chs_data_dat: dayjs(invoice.chs_data_dat).format(
+      "YYYY-MM-DD HH:mm:ss"
+    ),
     account_dir: invoice.account_dir,
     for_amt: invoice.for_amt,
     account_telefono: "",
