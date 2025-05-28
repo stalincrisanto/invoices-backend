@@ -2,6 +2,8 @@ import { Epmmq, Invoice } from "../services/invoice.service";
 import fs from "fs/promises";
 import path from "path";
 import dayjs from "dayjs";
+import JsBarcode from "jsbarcode";
+import { createCanvas } from "canvas";
 
 export const formatDataForPdf = async (epmmqData: Epmmq, invoice: Invoice) => {
   const logoPath = path.join(
@@ -23,7 +25,7 @@ export const formatDataForPdf = async (epmmqData: Epmmq, invoice: Invoice) => {
     ),
     ambiente: "PRODUCCION",
     emision: "NORMAL",
-    barcode: "",
+    barcode: generateBarCode(invoice.invoice_number),
     razon_social: epmmqData.CONCESSION_NAM,
     nombre_comercial: epmmqData.CONCESSION_NAM,
     dir_matriz: epmmqData.ADDR_DES,
@@ -32,9 +34,7 @@ export const formatDataForPdf = async (epmmqData: Epmmq, invoice: Invoice) => {
     contribuyente_especial_2: "162",
     account_razon: invoice.account_razon,
     account_fiscal_id: invoice.account_fiscal_id,
-    chs_data_dat: dayjs(invoice.chs_data_dat).format(
-      "YYYY-MM-DD HH:mm:ss"
-    ),
+    chs_data_dat: dayjs(invoice.chs_data_dat).format("YYYY-MM-DD HH:mm:ss"),
     account_dir: invoice.account_dir,
     for_amt: invoice.for_amt,
     account_telefono: "",
@@ -51,4 +51,19 @@ export const formatDataForPdf = async (epmmqData: Epmmq, invoice: Invoice) => {
     l1_7: invoice.for_amt,
   };
   return formatDataForPdf;
+};
+
+export const generateBarCode = (barcode: string) => {
+  const canvas = createCanvas(338.4,64);
+
+  JsBarcode(canvas, barcode, {
+    format: "CODE128",
+    lineColor: "#000",
+    width: 2,
+    height: 64,
+    displayValue: false,
+    margin: 0,
+  });
+
+  return canvas.toDataURL("image/png");
 };

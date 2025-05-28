@@ -94,23 +94,6 @@ const getInfoEpmmqFromDb = async () => {
   }
 };
 
-// QUERY COMPLETA
-// hay la posibilidad de realizar paginado por cursor <------
-// #cabecera cliente
-// select sri.id,sri.account_razon, sri.account_fiscal_id, sri.chs_data_dat,
-// #cabecera sri
-// concat(sri.ce_serie,'-',sri.ce_secuencial) as invoice_number, sri.ce_ca, sri.fecha_autorizacion,
-// #detalle
-// sri.cashmov_ope, sri.cashmov_cant, sri.cashmov_des, sri.cashmov_imp, sri.for_amt,
-// #pie
-// sri.account_dir, sri.account_email, concat(sri.paymod_code,' - ',sri.paymod_des)
-// from srimvmn sri
-// where sri.cashmov_type = '01'
-// and sri.account_fiscal_id = '1850039247' #1850039247
-// and chs_data_dat between '2025-02-01 00:00:00' and '2025-03-30 23:59:59'
-// order by chs_data_dat desc
-// limit 5
-// offset 0;
 
 interface Params {
   documentId: string;
