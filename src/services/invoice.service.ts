@@ -28,7 +28,7 @@ export const getAllInvoicesService = async (params: Params) => {
     AND sri.account_fiscal_id = ?
     AND sri.chs_data_dat BETWEEN ? AND ?
   ORDER BY sri.chs_data_dat DESC
-  LIMIT 5
+  LIMIT 50
   OFFSET 0;
   `;
 
