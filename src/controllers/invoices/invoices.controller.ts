@@ -6,9 +6,8 @@ import {
 
 export const getAllInvoicesController = async (req: Request, res: Response) => {
   try {
-    const { documentId, dateStart, dateEnd } = req.query;
-
-    if (!documentId || !dateStart || !dateEnd) {
+    const { documentId, dateStart, dateEnd, captchaText } = req.query;
+    if (!documentId || !dateStart || !dateEnd || !captchaText) {
       res.status(400).json({
         success: false,
         message: "Faltan parámetros documentId, dateStart, dateEnd",
@@ -59,12 +58,9 @@ export const generatePdfController = async (req: Request, res: Response) => {
     //aqui falta agregar algún identificador de factura ${invoice.invoice_number}
     res.send(pdf);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Error al generar el PDF",
-        error: error instanceof Error ? error.message : error,
-      });
+    res.status(500).json({
+      message: "Error al generar el PDF",
+      error: error instanceof Error ? error.message : error,
+    });
   }
 };
-
