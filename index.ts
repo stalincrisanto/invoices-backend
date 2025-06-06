@@ -7,9 +7,10 @@ import { sessionMiddleware } from "./src/config/sessions";
 const app = express();
 
 const corsOptions = {
-  origin: '*',//TODO: change this to specific domains in production
+  origin: ["http://localhost:3000"],//TODO: change this to specific domains in production
   methods: 'GET,POST,PUT,DELETE', 
   allowedHeaders: 'Content-Type,Authorization',
+  credentials: true,
 };
 
 app.use(express.json());

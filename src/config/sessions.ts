@@ -1,18 +1,21 @@
 import { SessionOptions } from "express-session";
 import session from "express-session";
 
+const isProd = process.env.NODE_ENV === "production";
+
 export const sessionConfig: SessionOptions = {
   secret: process.env.SESSION_SECRET!,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     maxAge: 7 * 60 * 1000, 
-    secure: false, //TODO: cambiar al activar en producción o mejor aplicar validación ?
-    httpOnly: true, // Previene el acceso a la cookie desde JavaScript
-    sameSite: "strict", // Helps prevent CSRF attacks
+    secure: isProd,
+    httpOnly: true,
+    sameSite: isProd ? "strict" : "lax",
+    domain: "localhost", // Cambiar al dominio de producción process.env.NODE_ENV === "production" ? "yourdomain.com" : "localhost",
   },
-  rolling: true, // Renueva la cookie en cada solicitud
-  name: "captchaName"
+  rolling: true,
+  name: "captchaName",
 };
 
 export const sessionMiddleware = session(sessionConfig);

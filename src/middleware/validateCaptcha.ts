@@ -7,17 +7,17 @@ export const validateCaptcha = (
 ) => {
   const CAPTCHA_LIFETIME = 7 * 60 * 1000; // 7 minutos en milisegundos
 
-  if (!req.session.captcha) {
+  if (!req.session.captcha || req.session.captcha === "") {
     res.status(400).json({
       success: false,
-      message: "Captcha no encontrado en la sesión",
+      message: "No se ha enviado el captcha",
     });
   }
 
   if (req.session.captchaGeneratedAt) {
     if (Date.now() - req.session.captchaGeneratedAt > CAPTCHA_LIFETIME) {
       req.session.captcha = null;
-      res.status(403).json({
+      res.status(401).json({
         success: false,
         error: "CAPTCHA expirado. Por favor genere uno nuevo",
         code: "CAPTCHA_EXPIRED",
