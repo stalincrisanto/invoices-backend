@@ -24,6 +24,7 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
     "express-session": "^1.18.1",
     "jsbarcode": "^3.11.6",
     "mysql2": "^3.14.1",
